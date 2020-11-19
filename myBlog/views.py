@@ -88,7 +88,7 @@ def show(request,sid):
 def tag(request,tag):
 
     list = Article.objects.filter(tag__name=tag)  # 通过文章标签进行查询文章
-    remen = Article.objects.filter(tui__id=2)[:6]
+    remen = Article.objects.filter(tui_id=2)[:6]
     allcategory = Category.objects.all()
     tname = Tag.objects.get(name=tag)  # 获取当前搜索的标签名
     page = request.GET.get('page')
@@ -105,7 +105,7 @@ def tag(request,tag):
 def search(request):
     ss = request.GET.get('search')  # 获取搜索的关键词
     list = Article.objects.filter(title__icontains=ss)  # 获取到搜索关键词通过标题进行匹配
-    remen = Article.objects.filter(tui__id=2)[:6]
+    remen = Article.objects.filter(tui_id=2)[:6]
     allcategory = Category.objects.all()
     page = request.GET.get('page')
     tags = Tag.objects.all()
