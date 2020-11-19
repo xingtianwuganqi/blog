@@ -4,7 +4,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from mdeditor.fields import MDTextField #必须导入
-
+import django.utils.timezone as timezone
 # 文章分类
 class Category(models.Model):
     name = models.CharField('博客分类',max_length=100)
@@ -57,7 +57,7 @@ class Article(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='作者')
     views = models.PositiveIntegerField('阅读量',default=0)
     tui = models.ForeignKey(Tui,on_delete=models.DO_NOTHING,blank=True,null=True)
-    create_time = models.DateTimeField('发布时间',auto_now_add=True)
+    create_time = models.DateTimeField('发布时间',default = timezone.now)
     modified_time = models.DateTimeField('修改时间',auto_now=True)
 
     class Meta:
