@@ -64,7 +64,7 @@
                                             title="{{ a.title }}">{{ a.excerpt }}</a></p>
                             <div class="meta"><span class="label label-info"><a
                                 href="{% url 'index' %}list-{{ a.category.id }}.html">{{ a.category.name }}</a></span>
-                            <time class="item"><i class="fa fa-clock-o"></i>{{ a.created_time|date:"Y年m月d日" }}
+                            <time class="item"><i class="fa fa-clock-o"></i>{{ a.create_time|date:"Y年m月d日" }}
                             </time>
                             </div>
                             </div>

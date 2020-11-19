@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
-        'USER': 'blog',
-        'PASSWORD': '123456',
+        'USER': 'blog', # 本地root，线上blog
+        'PASSWORD': '123456', # 本地空格，线上123456
         'HOST':'localhost', # 数据库服务器ip
         'PORT':'3306' # 端口
     }
