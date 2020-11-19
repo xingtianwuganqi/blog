@@ -1,0 +1,5 @@
+Pillow
+Django
+Markdown
+django-mdeditor
+PyMySQL
