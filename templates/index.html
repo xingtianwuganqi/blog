@@ -65,7 +65,8 @@
                             <div class="meta"><span class="label label-info"><a
                                 href="{% url 'index' %}list-{{ a.category.id }}.html">{{ a.category.name }}</a></span>
                             <time class="item"><i class="fa fa-clock-o"></i>{{ a.create_time|date:"Y年m月d日" }}
-                            </time>
+                            </time>&nbsp;&nbsp;&nbsp;
+                                <span class="views-count">{{ a.views }} 阅读</span>
                             </div>
                             </div>
                         </div>
