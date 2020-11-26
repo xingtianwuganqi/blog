@@ -1,10 +1,10 @@
 import markdown
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Article,Category,Link,Tui,Tag,Banner
+from .models import Article,Category,Link,Tui,Tag,Banner,UserIP,VisitNumber
 # 分页插件包
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from .visit_info import change_info
 
 
 def index(request):
@@ -24,6 +24,11 @@ def index(request):
     tags = Tag.objects.all()
     # 友情链接
     link = Link.objects.all()
+    change_info(request, '/')
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
+
     context = {
         'allcategory': allcategory,
         'banner': banner,
@@ -32,7 +37,9 @@ def index(request):
         'hot': hot,
         'remen': remen,
         'tags' : tags,
-        'link' : link
+        'link' : link,
+        'ip_num': ip_num,
+        'visit_num': visit_num
     }
     return render(request,'index.html',context)
 
@@ -43,6 +50,9 @@ def list(request,lid):
     remen = Article.objects.all().filter(tui_id = 2)[:6] # 获取热门推荐
     allcategory = Category.objects.all() # 导航所有分类
     tags = Tag.objects.all() # 获取所有文章标签
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
 
     # 获取页数
     page = request.GET.get('page')#在URL中获取当前页面数
@@ -83,6 +93,10 @@ def show(request,sid):
                                           'markdown.extensions.codehilite',
                                           'markdown.extensions.toc',
                                       ])
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
+
     return render(request,'show.html',locals())
 
 def tag(request,tag):
@@ -94,6 +108,10 @@ def tag(request,tag):
     page = request.GET.get('page')
     tags = Tag.objects.all()
     paginator = Paginator(list, 5)
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
+
     try:
         list = paginator.page(page)  # 获取当前页码的记录
     except PageNotAnInteger:
@@ -110,6 +128,10 @@ def search(request):
     page = request.GET.get('page')
     tags = Tag.objects.all()
     paginator = Paginator(list, 10)
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
+
     try:
         list = paginator.page(page)  # 获取当前页码的记录
     except PageNotAnInteger:
@@ -121,6 +143,10 @@ def search(request):
 # 关于我们
 def about(request):
     allcategory = Category.objects.all()
+
+    ip_num = UserIP.objects.all().count()
+    visit_num = VisitNumber.objects.values_list('count').first()[0]
+
     return render(request, 'page.html',locals())
 
 
